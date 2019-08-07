@@ -52,9 +52,15 @@ function initMap() {
           title: item[i].name,
           id: i
         });
+        var image = '';
+        if(item[i].image != ''){
+        	image = '<img src="' + item[i].image +'" style="max-width: 200px;"/>';
+        }
+        
         marker[i].content = '<div>'+
             '<h3 id="firstHeading" class="firstHeading">' + item[i].name + '</h3>'+
             '<div id="bodyContent">'+
+            image+
             '<p><a href="'+url+'?serial='+item[i].serial+'">Place an inquiry for this</a> '+
             '</p>'+
             '</div>'+

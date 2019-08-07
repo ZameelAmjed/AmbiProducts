@@ -39,7 +39,7 @@ if( !class_exists('Ambi_Add_Products') )
 			/*if( $current_screen->post_type !== 'post' )
 				return;*/
 			#---------------WHERE TO PUT THE SCRIPTS OFF --------------
-
+			wp_enqueue_media();
 			wp_enqueue_script( 'ajax_request_script',
 				AMBIPROD_PLUGIN_URL.'ambi_products.js',
 				array( 'jquery' ),
@@ -77,13 +77,14 @@ if( !class_exists('Ambi_Add_Products') )
 				$name = sanitize_text_field($val['name']);
 				$field[$name] = sanitize_text_field($val['value']);
 			}
-			$serial = intval($field['serial']);
+			$serial = sanitize_text_field($field['serial']);
 			$category = sanitize_text_field($field['category']);
 			$location = sanitize_text_field($field['location']);
 			$item_name = sanitize_text_field($field['item_name']);
 			$availability = sanitize_text_field($field['availability']);
 			$long = sanitize_text_field($field['long']);
 			$lat = sanitize_text_field($field['lat']);
+			$img = sanitize_trackback_urls($field['img']);
 
 			//integrity check
 			if(empty($category) || empty($location) || empty($item_name))
@@ -93,7 +94,7 @@ if( !class_exists('Ambi_Add_Products') )
 			$wpdb->hide_errors();
 			$table_name = $wpdb->prefix . 'ambi_products';
 
-			$row = $wpdb->get_row( "SELECT * FROM $table_name WHERE serial = {$serial}" );
+			$row = $wpdb->get_row( "SELECT * FROM $table_name WHERE `serial` = '{$serial}'" );
 			if($row){
 
 				//update record
@@ -113,7 +114,8 @@ if( !class_exists('Ambi_Add_Products') )
 							'item_name' => $item_name,
 							'status' => $availability,
 							'long' => $long,
-							'lat' => $lat
+							'lat' => $lat,
+							'image'=>$img
 						),
 						array( 'id' => $row->id )
 					);
@@ -134,7 +136,8 @@ if( !class_exists('Ambi_Add_Products') )
 						'item_name' => $item_name,
 						'status' => $availability,
 						'long' => $long,
-						'lat' => $lat
+						'lat' => $lat,
+						'image'=>$img
 					)
 				);
 				if($result_check){
@@ -180,7 +183,7 @@ if( !class_exists('Ambi_Add_Products') )
 			global $wpdb;
 			$wpdb->hide_errors();
 			$table_name = $wpdb->prefix . 'ambi_products';
-			$row = $wpdb->get_row( "SELECT * FROM $table_name WHERE serial = {$field['serial']}" );
+			$row = $wpdb->get_row( "SELECT * FROM $table_name WHERE `serial` = '{$field['serial']}'" );
 
 		if($row){
 				wp_send_json_success($row);

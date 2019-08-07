@@ -26,32 +26,59 @@ Add products with categories and geotags and display in a map or embed to sectio
 This section describes how to install the plugin and get it working.
 
 1. Upload the plugin files to the `/wp-content/plugins/ambi_products` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-1. Use the Settings->Ambi Products Settings screen to configure the plugin
-1. Use Google Maps Javascript API to generate a key and paste it
-1. List each category seperated by comma e.g. apartments, bungalow, condominium
-1. Now you can navigate to Plugins->Ambi Products to add / update products
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Use the Settings->Ambi Products Settings screen to configure the plugin
+4. Use Google Maps Javascript API to generate a key and paste it
+5. List each category seperated by comma e.g. apartments, bungalow, condominium
+6. Now you can navigate to Plugins->Ambi Products to add / update products
 
 == Shortcodes ==
-1. To list products of each category in a table. e.g
-#####[ambi-products cat=\"category name\" url=\"link to redirect\"][/ambi-products]
-```[ambi-products cat="CATEGORY NAME" url="http://mywordpresssite.com/contact/houses"][/ambi-products]```
-1. To list products of each category in a map. e.g
-#####[ambi-products-map cat=\"category name\" url=\"link to redirect\"][/ambi-products-map]
+
+=Category=
+
+1. Use **ambi-products** to list products of each category in a table. e.g
+`[ambi-products cat="category name" url="link to redirect"][/ambi-products]`
+
+2. Then use **ambi-product-inquiry** shortcode in contact page to capture inquiry for your form (you can use plugins like contact form 7 to add forms)
+`[ambi-product-inquiry form-id="my-form-id" field-name="*mail-subject*"][/ambi-product-inquiry]`
+
+Above shortcode is used for a form generated using [contact-form-7](https://wordpress.org/plugins/contact-form-7/)
+[contact-form-7 html_id="my-form-id" title="Contact form 1"]
+[text mail-subject]
+
+3. If your table consists large number of records use **datatable="true"** attribute to organize it neatly with pagination and search function
+`[ambi-products cat="CATEGORY NAME" datatable="true" ][/ambi-products]`
+
+=Plot in Google Map=
+1. Use **ambi-products-map** to list products of each category in a map. e.g
+`[ambi-products-map cat="category name" url="link to redirect"][/ambi-products-map]`
 
 == Screenshots ==
 
-1. Activate plugin `/assets/screenshot-1.png`
-1. Navigate to Settings page `/assets/screenshot-2.png`
-1. Add Google Maps Javascript API Key `/assets/screenshot-3.png`
-1. Add Categories and API Key`/assets/screenshot-4.png`
-1. Add Products `/assets/screenshot-5.png`
-1. Shortcodes `/assets/screenshot-6.png`
 1. Homepage with plugin `/assets/screenshot-7.png`
+2. Activate plugin `/assets/screenshot-1.png`
+3. Navigate to Settings page `/assets/screenshot-2.png`
+4. Add Google Maps Javascript API Key `/assets/screenshot-3.png`
+5. Add Categories and API Key`/assets/screenshot-4.png`
+6. Add Products `/assets/screenshot-5.png`
+7. Shortcodes `/assets/screenshot-6.png`
 
 == Frequently Asked Questions ==
 TBU
+
 == Changelog ==
-TBU
+=1.5=
+* Integration of DataTables for large number of records
+* Automatic capture of product info for the inquiry
+* Use images in Map Marker popup window
+
+= 1.0 =
+* Plugin with Table and Map
+
 == Upgrade Notice ==
-TBU
+
+= 1.5 =
+Category table is formatted neatly and search function is integrated to display large number of records
+
+= 1.0 =
+Initial release of the plugin

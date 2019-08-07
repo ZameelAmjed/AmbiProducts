@@ -48,7 +48,7 @@ class Ambi_Products_Options
                 <tbody>
                 <tr>
                     <th scope="row">Find By Serial No</th>
-                    <td><input type="number" id="find-serial" name="serial" value="">
+                    <td><input type="text" id="find-serial" name="serial" value="">
                         <span class="find-message"></span>
                         <?php submit_button('Find','default');?></td>
                 </tr>
@@ -137,6 +137,13 @@ class Ambi_Products_Options
 		    'my-products-admin',
 		    'setting_section_id'
 	    );
+	    add_settings_field(
+		    'image',
+		    'Image',
+		    array( $this, 'img_callback' ),
+		    'my-products-admin',
+		    'setting_section_id'
+	    );
 
 	    add_settings_field(
 	    'delete',
@@ -178,10 +185,17 @@ class Ambi_Products_Options
     public function serial_callback()
     {
         printf(
-            '<input type="number" id="serial" name="serial" value="%s" />',
+            '<input type="text" id="serial" name="serial" value="%s" />',
             isset( $this->options['serial'] ) ? esc_attr( $this->options['serial']) : ''
         );
     }
+
+	public function img_callback()
+	{
+		printf(
+			'<button type="button" class="button link" id="ambi_image_upload_button">Select an Image</button><input type="hidden" id="ambi_product_image" name="img" value="" />'
+		);
+	}
 
     /** 
      * Get the settings option array and print one of its values

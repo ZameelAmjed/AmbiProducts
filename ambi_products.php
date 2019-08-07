@@ -3,7 +3,7 @@
  * Plugin Name: Ambi Products
  * Plugin URI: http://ambitiousdevelopers.com
  * Description: Add products with categories and geotags and display in a map or embed to section pages using shortcodes
- * Version: 1.0
+ * Version: 1.5
  * Author: Zameel Amjed
  * Author URI: https://www.linkedin.com/in/zameel-amjed/
  */
@@ -23,13 +23,14 @@ $charset_collate = $wpdb->get_charset_collate();
 $table_name = $wpdb->prefix . 'ambi_products';
 $sql = "CREATE TABLE $table_name (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `serial` int (11) NOT NULL UNIQUE,
+  `serial` VARCHAR(50) NOT NULL UNIQUE,
   `category` varchar(256) NOT NULL,
   `location` varchar(256) NOT NULL,
   `item_name` varchar(256),
   `status` varchar(55) DEFAULT 'Y' NOT NULL,
   `long` varchar(256) DEFAULT '',
   `lat` varchar(256) DEFAULT '',
+  `image` varchar(256) DEFAULT '',
   PRIMARY KEY  (id)
 ) $charset_collate;";
 

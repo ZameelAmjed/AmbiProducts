@@ -4,6 +4,8 @@
  */
 
 jQuery( document ).ready(function () {
+    var mediaUploader;
+
     jQuery(".delete").hide();
     jQuery("#ambi_add_products").submit(function() {
             event.preventDefault();
@@ -76,6 +78,7 @@ jQuery( document ).ready(function () {
                            jQuery("#long").val(response.data.long);
                            jQuery("#lat").val(response.data.lat);
                            jQuery("#availability").val(response.data.status);
+                           jQuery("#ambi_product_image").val(response.data.image);
                            jQuery(".delete").show();
                        }else{
                            jQuery(".find-message").html('Record could not be found');
@@ -88,4 +91,28 @@ jQuery( document ).ready(function () {
                     }
                 });
         });
+    /*Image Selector*/
+    jQuery('#ambi_image_upload_button').click(function(e) {
+        e.preventDefault();
+        // If the uploader object has already been created, reopen the dialog
+        if (mediaUploader) {
+            mediaUploader.open();
+            return;
+        }
+        // Extend the wp.media object
+        mediaUploader = wp.media.frames.file_frame = wp.media({
+            title: 'Choose Image',
+            button: {
+                text: 'Choose Image'
+            }, multiple: false });
+
+        // When a file is selected, grab the URL and set it as the text field's value
+        mediaUploader.on('select', function() {
+            attachment = mediaUploader.state().get('selection').first().toJSON();
+            $('#ambi_product_image').val(attachment.url);
+        });
+        // Open the uploader dialog
+        mediaUploader.open();
+    });
+
 });
